@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Nav from './Nav';
 import SearchArea from './SearchArea';
 import MovieList from './MovieList';
+import Pagination from './Pagination';
 
 
 class App extends Component{
@@ -10,7 +11,9 @@ class App extends Component{
     super()
     this.state = {
       movies: [],
-      searchTerm: ''
+      searchTerm: '',
+      totalResults: 0,
+      currentPage: 1
     }
     this.apiKey = process.env.REACT_APP_API
   }
@@ -22,7 +25,7 @@ class App extends Component{
     .then(data => data.json())
     .then(data => {
       console.log(data);
-      this.setState({movies: [...data.Search]})
+      this.setState({movies: [...data.Search], totalResults: data.totalResults})
     })
   }
 
@@ -32,12 +35,24 @@ class App extends Component{
     })
   }
 
+  nextPage = (pageNumber) => {
+    fetch(`http://www.omdbapi.com/?apikey=${this.apiKey}&s=${this.state.searchTerm}&page=${pageNumber}`)
+    .then(data => data.json())
+    .then(data => {
+      console.log(data);
+      this.setState({movies: [...data.Search], currentPage: pageNumber})
+    })
+  }
+
   render() {
+    const numElementsPerPage = 5;
+    const numberPages = Math.floor(this.state.totalResults / 10);
     return (
       <div className = "App">
         <Nav />
         <SearchArea handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
         <MovieList movies={this.state.movies} />
+        { this.state.totalResults > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage} /> : ''}
       </div>
     );
   }
