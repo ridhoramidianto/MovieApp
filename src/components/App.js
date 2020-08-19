@@ -25,7 +25,7 @@ class App extends Component{
     .then(data => data.json())
     .then(data => {
       console.log(data);
-      this.setState({movies: [...data.Search], totalResults: data.totalResults})
+      this.setState({movies: [...data.Search.splice(0,5)], totalResults: data.totalResults})
     })
   }
 
@@ -36,23 +36,24 @@ class App extends Component{
   }
 
   nextPage = (pageNumber) => {
-    fetch(`http://www.omdbapi.com/?apikey=${this.apiKey}&s=${this.state.searchTerm}&page=${pageNumber}`)
+    const apiPage = Math.ceil(pageNumber / 2);
+    fetch(`http://www.omdbapi.com/?apikey=${this.apiKey}&s=${this.state.searchTerm}&page=${apiPage}`)
     .then(data => data.json())
     .then(data => {
       console.log(data);
-      this.setState({movies: [...data.Search], currentPage: pageNumber})
+      pageNumber % 2 === 1 ? this.setState({movies: [...data.Search.splice(0,5)], currentPage: pageNumber}) : this.setState({movies: [...data.Search.splice(5,10)], currentPage: pageNumber})
     })
   }
 
   render() {
     const numElementsPerPage = 5;
-    const numberPages = Math.floor(this.state.totalResults / 10);
+    const numberPages = Math.floor(this.state.totalResults / 5);
     return (
       <div className = "App">
         <Nav />
         <SearchArea handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
         <MovieList movies={this.state.movies} />
-        { this.state.totalResults > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage} /> : ''}
+        { this.state.totalResults > 5 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage} /> : ''}
       </div>
     );
   }
