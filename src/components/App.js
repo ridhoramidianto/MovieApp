@@ -48,10 +48,11 @@ class App extends Component{
   }
 
   viewMovieInfo = (id) => {
-    const filteredMovie = this.state.movies.filter(movie => movie.id == id);
+    const filteredMovie = this.state.movies.filter(movie => movie.imdbID == id);
+    console.log(id)
+    console.log(this.state.movies[0])
     const newCurrentMovie = filteredMovie.length > 0 ? filteredMovie[0] : null;
     this.setState({currentMovie: newCurrentMovie})
-
   }
 
   closeMovieInfo = () => {
@@ -62,7 +63,7 @@ class App extends Component{
     const numElementsPerPage = 5;
     const numberPages = Math.floor(this.state.totalResults / 5);
     return (
-      <div className = "App">
+      <div className = "App indigo lighten-5">
         <Nav />
         { this.state.currentMovie == null ? <div><SearchArea handleSubmit={this.handleSubmit} handleChange={this.handleChange}/> <MovieList viewMovieInfo={this.viewMovieInfo} movies={this.state.movies} /></div> : <MovieInfo currentMovie={this.state.currentMovie} closeMovieInfo={this.closeMovieInfo}/>}      
         { this.state.totalResults > 5 && this.state.currentMovie == null ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage} /> : ''}
