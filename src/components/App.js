@@ -42,7 +42,6 @@ class App extends Component{
     fetch(`http://www.omdbapi.com/?apikey=${this.apiKey}&s=${this.state.searchTerm}&page=${apiPage}`)
     .then(data => data.json())
     .then(data => {
-      console.log(data);
       pageNumber % 2 === 1 ? this.setState({movies: [...data.Search.splice(0,5)], currentPage: pageNumber}) : this.setState({movies: [...data.Search.splice(5,10)], currentPage: pageNumber})
     })
   }
