@@ -2,6 +2,8 @@
 
 This project is the based on the [React MovieDB API Project](https://www.youtube.com/playlist?list=PL_kAgwZgMfWyZ6m8fDwdiwEarr_g6nFxz) by the [Jason Rivera](https://github.com/rivera1294/dbmovie). I wanted to share an updated version with slight modifications.
 
+![](images/sample.gif)
+
 Base Features:
 - Built with the [React App](https://reactjs.org/) and [Materialize CSS](https://materializecss.com/)
 - Movie database search feature using an external API
@@ -17,10 +19,6 @@ Updated Features:
 You can download the code and run node server with:
         
     npm start
-
-Additionally I have hosted a the app and you can access it with the following link:
-
-    TODO
 
 Please keep in mind OMDb API limits the requests by 1000 per day, and you might not get any search result if api key reached daily limit. You can replace ```REACT_APP_API``` variable in the ```.env``` file with your api key to make sure the response is correct.
 
