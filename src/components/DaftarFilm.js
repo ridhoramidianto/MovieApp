@@ -1,7 +1,7 @@
 import React from 'react'
-import Movie from './Movie';
+import Filem from './Filem';
 
-const MovieList = (props) => {
+const DaftarFilm = (props) => {
     return (
     <div className = "container">
         <div className="row">
@@ -10,7 +10,7 @@ const MovieList = (props) => {
                 {
                     props.movies.map((movie, i) => {
                         return (
-                            <Movie key={i} viewMovieInfo={props.viewMovieInfo} movieId={movie.imdbID} image={movie.Poster} />
+                            <Filem key={i} viewMovieInfo={props.viewMovieInfo} movieId={movie.imdbID} image={movie.Poster} />
                         )
                     })
                 }
@@ -21,4 +21,4 @@ const MovieList = (props) => {
     )
 }
 
-export default MovieList;
+export default DaftarFilm;

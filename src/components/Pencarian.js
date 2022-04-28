@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchArea = (props) => {
+const Pencarian = (props) => {
 
     return (
         <div className="container">
@@ -19,4 +19,4 @@ const SearchArea = (props) => {
     )
 }
 
-export default SearchArea;
+export default Pencarian;
